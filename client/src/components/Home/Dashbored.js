@@ -13,6 +13,8 @@ const Dashbored = () => {
     const [checkOut, setCheckOut] = useState('');
     const [data, setData] = useState([]);
     const [filterData, setFilterData] = useState([]);
+
+    // get all bookings
     useEffect(() => {
         axios.get('http://localhost:3000/all-bookings/')
             .then(res => {
@@ -23,8 +25,9 @@ const Dashbored = () => {
                 console.log(err);
             })
     }, [])
+
+    // filter by room number and room type
     useEffect(() => {
-        // filter by room number and room type
         if (roomType !== '' && roomNumber !== '') {
             setFilterData(data.filter(item => item.roomType === roomType && item.roomNumber == roomNumber));
         } else if (roomType !== '') {
@@ -36,8 +39,8 @@ const Dashbored = () => {
         }
     }, [roomType, roomNumber])
 
+    // filter by check in and check out
     useEffect(() => {
-        // filter by check in and check out
         if (checkIn !== '' && checkOut !== '') {
             let checkInDate = Date.parse(checkIn)/1000;
             let checkOutDate = Date.parse(checkOut)/1000 + 86400;
@@ -52,9 +55,8 @@ const Dashbored = () => {
             setFilterData(data);
         }
     }, [checkIn, checkOut])
-    console.log(filterData);
-    console.log(data);
 
+    // delete booking
     const handleDelete = async(id) => {
         let userData = data.filter(item => item._id === id);
         let bookingTime = userData[0].createdAt;
@@ -75,7 +77,6 @@ const Dashbored = () => {
         if(!result){
             return false;
         }
-        // let bookingTime = userData
         console.log(id);
         axios.delete(`http://localhost:3000/delete-booking/${id}`)
             .then(res => {
@@ -92,14 +93,14 @@ const Dashbored = () => {
         <div>
             <div className='container'>
                 {/* button to reset filter */}
-                <div className='row'>
+                <div className='row mb-3'>
                     <div className='col-md-12'>
-                        <button onClick={() => { setFilterData(data) }} className='btn btn-primary'>Reset Filter</button>
+                        <button onClick={() => { setFilterData(data) }} className='btn btn-primary btn-sm'>Reset Filter</button>
                     </div>
                 </div>
 
                 {/* filter by room number and room type */}
-                <div className='row'>
+                <div className='row mb-3'>
                     <div className='col-md-3'>
                         <div className='form-group'>
                             <label htmlFor="roomType">Room Type</label>
@@ -156,7 +157,10 @@ const Dashbored = () => {
                                 return (
                                   <tr key={item._id}>
                                     <td>
-                                      <Link to={`/${item._id}`}>
+                                      <Link
+                                        className="text-decoration-none"
+                                        to={`/${item._id}`}
+                                      >
                                         {item.name}
                                       </Link>
                                     </td>
@@ -171,8 +175,10 @@ const Dashbored = () => {
                                     </td>
                                     <td>
                                       <button
-                                        onClick={()=>{handleDelete(item._id)}}
-                                        className="btn btn-danger"
+                                        onClick={() => {
+                                          handleDelete(item._id);
+                                        }}
+                                        className="btn btn-danger btn-sm"
                                       >
                                         Cancel
                                       </button>

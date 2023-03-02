@@ -12,7 +12,7 @@ const Navbar = () => {
         }
     }
     return (
-        <div className='nav'>
+        <div className='nav mb-3'>
             <nav className="container">
                 <nav id='menu'>
                     <input type='checkbox' id='responsive-menu' onClick={updatemenu}/><label></label>

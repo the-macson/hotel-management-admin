@@ -14,21 +14,11 @@ const BookRoom = () => {
   const [totalBill, setTotalBill] = useState(0);
   const [payment, setPayment] = useState("");
   const [data, setData] = useState([]);
-  const [availableRooms, setAvailableRooms] = useState([
-    "A1",
-    "A2",
-    "B1",
-    "B2",
-    "B3",
-    "C1",
-    "C2",
-    "C3",
-    "C4",
-    "C5",
-  ]);
+  const [availableRooms, setAvailableRooms] = useState(["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5"]);
   const [check, setCheck] = useState(false);
   const [room, setRoom] = useState("");
 
+  // get all bookings
   useEffect(() => {
     axios
       .get("http://localhost:3000/all-bookings/")
@@ -40,6 +30,7 @@ const BookRoom = () => {
       });
   }, []);
 
+  // book available room
   const handleSubmit = (e) => {
     e.preventDefault();
     const bookRoom = {
@@ -60,24 +51,8 @@ const BookRoom = () => {
   };
 
   useEffect(() => {
-    setAvailableRooms([
-      "A1",
-      "A2",
-      "B1",
-      "B2",
-      "B3",
-      "C1",
-      "C2",
-      "C3",
-      "C4",
-      "C5",
-    ]);
-    if (
-      checkInDate != "" &&
-      checkInTime != "" &&
-      checkOutDate != "" &&
-      checkOutTime != ""
-    ) {
+    setAvailableRooms(["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5"]);
+    if (checkInDate != "" && checkInTime != "" && checkOutDate != "" && checkOutTime != "") {
       let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
       let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
       console.log(checkIn, checkOut);
@@ -137,7 +112,7 @@ const BookRoom = () => {
   return (
     <div className="container">
       <form className="row g-3">
-        <div className="col-md-6">
+        <div className="col-md-6 pb-1">
           <label htmlFor="inputName4" className="form-label">
             Name
           </label>
@@ -151,7 +126,7 @@ const BookRoom = () => {
             id="inputName4"
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 pb-1">
           <label htmlFor="inputEmail4" className="form-label">
             Email
           </label>
@@ -165,7 +140,7 @@ const BookRoom = () => {
             id="inputEmail4"
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 pb-1">
           <label htmlFor="inputCheckInDate" className="form-label">
             Check In
           </label>
@@ -223,7 +198,7 @@ const BookRoom = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 pb-1">
           <label htmlFor="inputCheckOut" className="form-label">
             Check Out
           </label>
@@ -281,7 +256,7 @@ const BookRoom = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 pb-1">
           <label htmlFor="inputTip" className="form-label">
             Tip for the staff
           </label>
@@ -295,7 +270,7 @@ const BookRoom = () => {
             className="form-control"
           />
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 pb-1">
           <label htmlFor="inputPaymetMethod" className="form-label">
             Paymet Method
           </label>
@@ -318,7 +293,7 @@ const BookRoom = () => {
         {availableRooms.length > 0 && (
           <div className="col-md-4">
             <label htmlFor="inputRoom" className="form-label">
-              Room
+              Available Room
             </label>
             <select
               onChange={(e) => {
@@ -342,7 +317,7 @@ const BookRoom = () => {
         {availableRooms.length === 0 && (
           <div className="col-md-6">
             <label htmlFor="inputRoom" className="form-label">
-              Room
+              Available Room
             </label>
             <select disabled required id="inputRoom" className="form-select">
               <option selected="" value="">

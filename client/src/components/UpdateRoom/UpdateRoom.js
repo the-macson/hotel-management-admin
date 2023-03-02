@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DateView from "../Home/DateView";
 import { confirm } from "react-confirm-box";
+import { Table } from "react-bootstrap";
 const UpdateRoom = () => {
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
@@ -42,18 +43,7 @@ const UpdateRoom = () => {
     console.log("tip is " + tip);
   },[data.tip]);
 
-  const [availableRooms, setAvailableRooms] = useState([
-    "A1",
-    "A2",
-    "B1",
-    "B2",
-    "B3",
-    "C1",
-    "C2",
-    "C3",
-    "C4",
-    "C5",
-  ]);
+  const [availableRooms, setAvailableRooms] = useState(["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5"]);
   // function for update room
   const handleSubmit = async (e) => {
     if(name == "" || email == "" || checkInDate == "" || checkInTime == "" || checkOutDate == "" || checkOutTime == "" || room == "" || payment == "") {
@@ -111,18 +101,7 @@ const UpdateRoom = () => {
     
     // check available rooms
     useEffect(() => {
-      setAvailableRooms([
-        "A1",
-        "A2",
-        "B1",
-        "B2",
-        "B3",
-        "C1",
-        "C2",
-        "C3",
-        "C4",
-        "C5",
-      ]);
+      setAvailableRooms(["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5"]);
     if (checkInDate != "" && checkInTime != "" && checkOutDate != "" && checkOutTime != "") {
         let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
         let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
@@ -190,29 +169,42 @@ const UpdateRoom = () => {
   }, [room, tip, checkInDate, checkInTime, checkOutDate, checkOutTime]);
   return (
     <div className="container">
-      {/* current details */}
-      <div className="row">
+      <div className="row pb-2 fs-5">
         <h3>Current Details</h3>
-        <div className="col-md-6">
-          <p>Name: {data.name}</p>
-          <p>
-            Check In: <DateView newdate={data.checkIn} />
-          </p>
-          <p>Room Number : {data.roomType + data.roomNumber}</p>
-          <p>Tip: {data.tip}</p>
-        </div>
-        <div className="col-md-6">
-          <p>Email: {data.email}</p>
-          <p>
-            Check Out: <DateView newdate={data.checkOut} />
-          </p>
-          <p>Total Bill: {data.price}</p>
-          <p>Payment Method: {data.paymentMethod}</p>
-        </div>
+          <Table bordered hover responsive className="my-3">
+            <tr>
+              <th>Name</th>
+              <td>{data.name}</td>
+              <th>Email</th>
+              <td>{data.email}</td>
+            </tr>
+            <tr>
+              <th>Check In</th>
+              <td>
+                <DateView newdate={data.checkIn} />
+              </td>
+              <th>Check Out</th>
+              <td>
+                <DateView newdate={data.checkOut} />
+              </td>
+            </tr>
+            <tr>
+              <th>Room Number</th>
+              <td>{data.roomType + data.roomNumber}</td>
+              <th>Total Bill</th>
+              <td>{data.price}</td>
+            </tr>
+            <tr>
+              <th>Tip</th>
+              <td>{data.tip}</td>
+              <th>Payment Method</th>
+              <td>{data.paymentMethod}</td>
+            </tr>
+          </Table>
       </div>
       <form className="row g-3">
         <h3>Update Details</h3>
-        <div className="col-md-6">
+        <div className="col-md-6 pb-1">
           <label htmlFor="inputName4" className="form-label">
             Name
           </label>
@@ -227,7 +219,7 @@ const UpdateRoom = () => {
             id="inputName4"
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 pb-1">
           <label htmlFor="inputEmail4" className="form-label">
             Email
           </label>
@@ -242,7 +234,7 @@ const UpdateRoom = () => {
             id="inputEmail4"
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 pb-1">
           <label htmlFor="inputCheckInDate" className="form-label">
             Check In
           </label>
@@ -300,7 +292,7 @@ const UpdateRoom = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 pb-1">
           <label htmlFor="inputCheckOut" className="form-label">
             Check Out
           </label>
@@ -358,7 +350,7 @@ const UpdateRoom = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 pb-1">
           <label htmlFor="inputTip" className="form-label">
             Tip for the staff
           </label>
@@ -372,7 +364,7 @@ const UpdateRoom = () => {
             className="form-control"
           />
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 pb-1">
           <label htmlFor="inputPaymetMethod" className="form-label">
             Paymet Method
           </label>
@@ -393,7 +385,7 @@ const UpdateRoom = () => {
           </select>
         </div>
         {availableRooms.length > 0 && (
-          <div className="col-md-4">
+          <div className="col-md-4 pb-1">
             <label htmlFor="inputRoom" className="form-label">
               Room
             </label>
@@ -417,7 +409,7 @@ const UpdateRoom = () => {
           </div>
         )}
         {availableRooms.length === 0 && (
-          <div className="col-md-6">
+          <div className="col-md-6 pb-1">
             <label htmlFor="inputRoom" className="form-label">
               Room
             </label>
@@ -429,7 +421,7 @@ const UpdateRoom = () => {
             </select>
           </div>
         )}
-        <div className="d-grid gap-2 col-3 mx-auto">
+        <div className="d-grid gap-2 col-3 mx-auto pb-3">
           <button onClick={handleSubmit} className="btn btn-primary center">
             Update Details
           </button>
