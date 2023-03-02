@@ -47,7 +47,7 @@ const BookRoom = () => {
       price: totalBill,
       paymentMethod: payment,
     };
-    console.log(bookRoom);
+    
     // alert(bookRoom);
     axios.post(`http://localhost:4000/add-booking/`, bookRoom);
     window.location = "/";
@@ -65,7 +65,7 @@ const BookRoom = () => {
     if (checkInDate != "" && checkInTime != "" && checkOutDate != "" && checkOutTime != "") {
       let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
       let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
-      console.log(checkIn, checkOut);
+      
       if (checkIn > checkOut) {
         alert("Check In date and time must be before Check Out date and time");
       } else if (checkIn == checkOut) {
@@ -73,7 +73,7 @@ const BookRoom = () => {
       } else {
         let timeDiff = Math.abs(checkOut - checkIn);
         let diffHours = Math.ceil(timeDiff / 3600);
-        console.log(diffHours);
+        
         let filteredData = data.filter((item) => {
           let itemCheckIn = item.checkIn;
           let itemCheckOut = item.checkOut;
@@ -83,8 +83,8 @@ const BookRoom = () => {
             setAvailableRooms(Pending);
           }
         });
-        console.log(availableRooms);
-        console.log(filteredData);
+        
+        
       }
     }
   }, [checkInDate, checkInTime, checkOutDate, checkOutTime]);
