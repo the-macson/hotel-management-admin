@@ -9,7 +9,7 @@ const UpdateRoom = () => {
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
   const { id } = useParams();
-  console.log(data);
+  
   const [room, setRoom] = useState("");
   const [name, setName] = useState(data.name);
   const [email, setEmail] = useState(data.email); 
@@ -34,12 +34,12 @@ const UpdateRoom = () => {
         console.log(err);
       });
   }, []);
-  console.log(tip);
+  
   useEffect(() => {
     if(tip == "0"){
       setTip(data.tip);
     }
-    console.log("tip is " + tip);
+    
   },[data.tip]);
 
   const [availableRooms, setAvailableRooms] = useState(["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5"]);
@@ -92,7 +92,7 @@ const UpdateRoom = () => {
       .get(`http://localhost:4000/all-bookings/`)
       .then((res) => {
         setAllData(res.data);
-        console.log(res.data);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -112,7 +112,7 @@ const UpdateRoom = () => {
       if (checkInDate != "" && checkInTime != "" && checkOutDate != "" && checkOutTime != "") {
         let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
         let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
-        console.log(checkIn, checkOut);
+        
         if (checkIn > checkOut) {
           alert("Check In date and time must be before Check Out date and time");
         } else if (checkIn == checkOut) {
@@ -120,7 +120,7 @@ const UpdateRoom = () => {
         } else {
           let timeDiff = Math.abs(checkOut - checkIn);
           let diffHours = Math.ceil(timeDiff / 3600);
-          console.log(diffHours);
+          
           let filteredData = allData.filter((item) => {
             let itemCheckIn = item.checkIn;
             let itemCheckOut = item.checkOut;
@@ -135,16 +135,16 @@ const UpdateRoom = () => {
               setAvailableRooms(Pending);
             }
           });
-        console.log(availableRooms);
-        console.log(filteredData);
+        
+        
       }
     }
   }, [checkInDate, checkInTime, checkOutDate, checkOutTime]);
 
-  console.log(room);
+  
   // calculate total bill
   useEffect(() => {
-    console.log(room);
+    
     if (room == "") {
       setCheck(false);
     }

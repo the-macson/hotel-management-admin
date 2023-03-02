@@ -21,7 +21,7 @@ const Dashbored = () => {
                 setFilterData(res.data);
             })
             .catch(err => {
-                console.log(err);
+                
             })
     }, [])
 
@@ -63,7 +63,7 @@ const Dashbored = () => {
         let timeDiff = Math.abs((Date.parse(bookingTime)/1000) - (checkInTime));
         let diffHours = Math.ceil(timeDiff / 3600);
         let refund = 0;
-        console.log(diffHours);
+        
         if(diffHours > 48){
             refund = 100;
         }else if(diffHours > 24){
@@ -77,10 +77,10 @@ const Dashbored = () => {
         if(!result){
             return false;
         }
-        console.log(id);
+        
         axios.delete(`http://localhost:4000/delete-booking/${id}`)
             .then(res => {
-                console.log(res);
+                
                 setData(data.filter(item => item._id !== id));
                 setFilterData(filterData.filter(item => item._id !== id));
             })
