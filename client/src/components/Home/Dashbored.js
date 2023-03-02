@@ -5,7 +5,6 @@ import { Table } from 'react-bootstrap';
 import DateView from './DateView';
 import { Link } from 'react-router-dom';
 import { confirm } from 'react-confirm-box';
-
 const Dashbored = () => {
     const [roomType, setRoomType] = useState('');
     const [roomNumber, setRoomNumber] = useState('');
@@ -16,7 +15,7 @@ const Dashbored = () => {
 
     // get all bookings
     useEffect(() => {
-        axios.get('http://localhost:3000/all-bookings/')
+        axios.get(`http://localhost:4000/all-bookings/`)
             .then(res => {
                 setData(res.data);
                 setFilterData(res.data);
@@ -60,10 +59,11 @@ const Dashbored = () => {
     const handleDelete = async(id) => {
         let userData = data.filter(item => item._id === id);
         let bookingTime = userData[0].createdAt;
-        let currentTime = Date.now();
-        let timeDiff = Math.abs(Date.parse(bookingTime)/1000 - (currentTime)/1000);
+        let checkInTime = userData[0].checkIn;
+        let timeDiff = Math.abs((Date.parse(bookingTime)/1000) - (checkInTime));
         let diffHours = Math.ceil(timeDiff / 3600);
         let refund = 0;
+        console.log(diffHours);
         if(diffHours > 48){
             refund = 100;
         }else if(diffHours > 24){
@@ -78,7 +78,7 @@ const Dashbored = () => {
             return false;
         }
         console.log(id);
-        axios.delete(`http://localhost:3000/delete-booking/${id}`)
+        axios.delete(`http://localhost:4000/delete-booking/${id}`)
             .then(res => {
                 console.log(res);
                 setData(data.filter(item => item._id !== id));

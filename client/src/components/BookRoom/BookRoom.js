@@ -2,7 +2,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
 const BookRoom = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,7 +20,7 @@ const BookRoom = () => {
   // get all bookings
   useEffect(() => {
     axios
-      .get("http://localhost:3000/all-bookings/")
+      .get(`http://localhost:4000/all-bookings/`)
       .then((res) => {
         setData(res.data);
       })
@@ -33,6 +32,10 @@ const BookRoom = () => {
   // book available room
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(checkInDate == "" || checkInTime == "" || checkOutDate == "" || checkOutTime == "" || room == "" || payment == ""){
+      alert("Please fill all the fields");
+      return;
+    }
     const bookRoom = {
       name: name,
       email: email,
@@ -46,12 +49,19 @@ const BookRoom = () => {
     };
     console.log(bookRoom);
     // alert(bookRoom);
-    axios.post("http://localhost:3000/add-booking/", bookRoom);
+    axios.post(`http://localhost:4000/add-booking/`, bookRoom);
     window.location = "/";
   };
 
   useEffect(() => {
     setAvailableRooms(["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5"]);
+    if(checkInDate != "" && checkInTime != ""){
+      let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
+      let currentTime = Date.parse(new Date()) / 1000;
+      if(checkIn < currentTime){
+        alert("Check In date and time must be after current date and time");
+      }
+    }
     if (checkInDate != "" && checkInTime != "" && checkOutDate != "" && checkOutTime != "") {
       let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
       let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
@@ -167,7 +177,7 @@ const BookRoom = () => {
                 id="time"
                 className="form-select"
               >
-                <option selected="" value="">
+                <option defaultValue="">
                   Choose...
                 </option>
                 <option value="0">12:00 AM</option>
@@ -225,7 +235,7 @@ const BookRoom = () => {
                 id="time"
                 className="form-select"
               >
-                <option selected="" value="">
+                <option defaultValue="">
                   Choose...
                 </option>
                 <option value="0">12:00 AM</option>
@@ -262,9 +272,15 @@ const BookRoom = () => {
           </label>
           <input
             defaultValue={0}
+            value={tip}
             required
             onChange={(e) => {
-              setTip(e.target.value);
+              if(e.target.value < 0){
+                alert("Tip cannot be negative");
+                setTip(0);
+              }else{
+                setTip(e.target.value);
+              }
             }}
             type="number"
             className="form-control"
@@ -282,7 +298,7 @@ const BookRoom = () => {
             id="inputPaymetMethod"
             className="form-select"
           >
-            <option selected="" value="">
+            <option defaultValue="">
               Choose...
             </option>
             <option value="cash">Cash</option>
@@ -303,7 +319,7 @@ const BookRoom = () => {
               id="inputRoom"
               className="form-select"
             >
-              <option selected="" value="">
+              <option defaultValue="">
                 Choose...
               </option>
               {availableRooms.map((room, index) => (
@@ -320,7 +336,7 @@ const BookRoom = () => {
               Available Room
             </label>
             <select disabled required id="inputRoom" className="form-select">
-              <option selected="" value="">
+              <option defaultValue="">
                 Choose...
               </option>
               <option value="">No Rooms Available</option>
