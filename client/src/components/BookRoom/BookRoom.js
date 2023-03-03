@@ -36,6 +36,17 @@ const BookRoom = () => {
       alert("Please fill all the fields");
       return;
     }
+    let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
+    let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
+    let currentTime = Date.parse(new Date()) / 1000;
+    if(checkIn > checkOut){
+      alert("Check In date and time must be before Check Out date and time");
+      return;
+    }
+    if(checkIn < currentTime){
+      alert("Check In date and time must be after current date and time");
+      return;
+    }
     const bookRoom = {
       name: name,
       email: email,
@@ -59,8 +70,6 @@ const BookRoom = () => {
       let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
       let currentTime = Date.parse(new Date()) / 1000;
       if(checkIn < currentTime){
-        setCheckInDate("");
-        setCheckInTime("");
         alert("Check In date and time must be after current date and time");
       }
     }
@@ -69,12 +78,8 @@ const BookRoom = () => {
       let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
       
       if (checkIn > checkOut) {
-        setCheckInDate("");
-        setCheckInTime("");
         alert("Check In date and time must be before Check Out date and time");
       } else if (checkIn == checkOut) {
-        setCheckInDate("");
-        setCheckInTime("");
         alert("Check In date and time must be before Check Out date and time");
       } else {
         let timeDiff = Math.abs(checkOut - checkIn);
@@ -127,7 +132,7 @@ const BookRoom = () => {
 
   return (
     <div className="book-room-container">
-      <div className="container outer-box">
+      <div className="container-xl outer-box">
         <form className="row g-3 form-style-5">
           <div className="col-md-6 pb-1">
             <label htmlFor="inputName4" className="form-label">

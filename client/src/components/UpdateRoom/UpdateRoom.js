@@ -49,6 +49,17 @@ const UpdateRoom = () => {
       alert("Please fill all the fields");
       return;
     }
+    let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
+    let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
+    let currentTime = Date.parse(new Date()) / 1000;
+    if (checkIn > checkOut) {
+      alert("Check In date and time must be before Check Out date and time");
+      return;
+    }
+    if (checkIn < currentTime) {
+      alert("Check In date and time must be after current date and time");
+      return;
+    }
     e.preventDefault();
     const updateRoom = {
       name : name,
@@ -106,8 +117,6 @@ const UpdateRoom = () => {
         let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
         let currentTime = Date.parse(new Date()) / 1000;
         if (checkIn < currentTime) {
-          setCheckInDate("");
-          setCheckInTime("");
           alert("Check In date and time must be after current date and time");
         }
       }
@@ -116,12 +125,8 @@ const UpdateRoom = () => {
         let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
         
         if (checkIn > checkOut) {
-          setCheckInDate("");
-          setCheckInTime("");
           alert("Check In date and time must be before Check Out date and time");
         } else if (checkIn == checkOut) {
-          setCheckInDate("");
-          setCheckInTime("");
           alert("Check In date and time must be before Check Out date and time");
         } else {
           let timeDiff = Math.abs(checkOut - checkIn);
@@ -130,10 +135,10 @@ const UpdateRoom = () => {
           let filteredData = allData.filter((item) => {
             let itemCheckIn = item.checkIn;
             let itemCheckOut = item.checkOut;
-            if (itemCheckOut > checkIn || checkOut < itemCheckIn) {
+            if (!(itemCheckIn <= checkIn && itemCheckOut <= checkIn) && !(itemCheckIn >= checkOut && itemCheckOut >= checkOut)) {
               let room = item.roomType.toUpperCase() + item.roomNumber;
               const Pending = availableRooms.filter((element) =>{
-                if(data.checkIn >= itemCheckIn && data.checkOut <= itemCheckOut && data.roomType == item.roomType && data.roomNumber == item.roomNumber) {
+                if(checkIn >= itemCheckIn && checkOut <= itemCheckOut && data.roomType == item.roomType && data.roomNumber == item.roomNumber) {
                   return element;
                 }
                 return element !== room;
