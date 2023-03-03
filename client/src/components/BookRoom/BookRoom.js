@@ -59,6 +59,8 @@ const BookRoom = () => {
       let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
       let currentTime = Date.parse(new Date()) / 1000;
       if(checkIn < currentTime){
+        setCheckInDate("");
+        setCheckInTime("");
         alert("Check In date and time must be after current date and time");
       }
     }
@@ -67,8 +69,12 @@ const BookRoom = () => {
       let checkOut = Date.parse(`${checkOutDate} ${checkOutTime}:00`) / 1000;
       console.log(checkIn, checkOut);
       if (checkIn > checkOut) {
+        setCheckInDate("");
+        setCheckInTime("");
         alert("Check In date and time must be before Check Out date and time");
       } else if (checkIn == checkOut) {
+        setCheckInDate("");
+        setCheckInTime("");
         alert("Check In date and time must be before Check Out date and time");
       } else {
         let timeDiff = Math.abs(checkOut - checkIn);
@@ -120,240 +126,232 @@ const BookRoom = () => {
   }, [room, tip, checkInDate, checkInTime, checkOutDate, checkOutTime]);
 
   return (
-    <div className="container">
-      <form className="row g-3">
-        <div className="col-md-6 pb-1">
-          <label htmlFor="inputName4" className="form-label">
-            Name
-          </label>
-          <input
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            required
-            type="text"
-            className="form-control"
-            id="inputName4"
-          />
-        </div>
-        <div className="col-md-6 pb-1">
-          <label htmlFor="inputEmail4" className="form-label">
-            Email
-          </label>
-          <input
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            required
-            type="email"
-            className="form-control"
-            id="inputEmail4"
-          />
-        </div>
-        <div className="col-md-6 pb-1">
-          <label htmlFor="inputCheckInDate" className="form-label">
-            Check In
-          </label>
-          <div className="row">
-            <div className="col-6">
-              <input
-                onChange={(e) => {
-                  setCheckInDate(e.target.value);
-                }}
-                required
-                type="date"
-                className="form-control"
-                id="inputCheckInDate"
-                placeholder="1234 Main St"
-              />
-            </div>
-            <div className="col-6">
-              <select
-                required
-                onChange={(e) => {
-                  setCheckInTime(e.target.value);
-                }}
-                name="time"
-                id="time"
-                className="form-select"
-              >
-                <option defaultValue="">
-                  Choose...
-                </option>
-                <option value="0">12:00 AM</option>
-                <option value="1">01:00 AM</option>
-                <option value="2">02:00 AM</option>
-                <option value="3">03:00 AM</option>
-                <option value="4">04:00 AM</option>
-                <option value="5">05:00 AM</option>
-                <option value="6">06:00 AM</option>
-                <option value="7">07:00 AM</option>
-                <option value="8">08:00 AM</option>
-                <option value="9">09:00 AM</option>
-                <option value="10">10:00 AM</option>
-                <option value="11">11:00 AM</option>
-                <option value="12">12:00 PM</option>
-                <option value="13">01:00 PM</option>
-                <option value="14">02:00 PM</option>
-                <option value="15">03:00 PM</option>
-                <option value="16">04:00 PM</option>
-                <option value="17">05:00 PM</option>
-                <option value="18">06:00 PM</option>
-                <option value="19">07:00 PM</option>
-                <option value="20">08:00 PM</option>
-                <option value="21">09:00 PM</option>
-                <option value="22">10:00 PM</option>
-                <option value="23">11:00 PM</option>
-              </select>
+    <div className="book-room-container">
+      <div className="container outer-box">
+        <form className="row g-3 form-style-5">
+          <div className="col-md-6 pb-1">
+            <label htmlFor="inputName4" className="form-label">
+              Name
+            </label>
+            <input
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+              required
+              type="text"
+              className="form-control"
+              id="inputName4"
+            />
+          </div>
+          <div className="col-md-6 pb-1">
+            <label htmlFor="inputEmail4" className="form-label">
+              Email
+            </label>
+            <input
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              required
+              type="email"
+              className="form-control"
+              id="inputEmail4"
+            />
+          </div>
+          <div className="col-md-6 pb-1">
+            <label htmlFor="inputCheckInDate" className="form-label">
+              Check In
+            </label>
+            <div className="row">
+              <div className="col-6">
+                <input
+                  onChange={(e) => {
+                    setCheckInDate(e.target.value);
+                  }}
+                  required
+                  type="date"
+                  className="form-control"
+                  id="inputCheckInDate"
+                  placeholder="1234 Main St"
+                />
+              </div>
+              <div className="col-6">
+                <select
+                  required
+                  onChange={(e) => {
+                    setCheckInTime(e.target.value);
+                  }}
+                  name="time"
+                  id="time"
+                  className="form-select"
+                >
+                  <option defaultValue="">Choose...</option>
+                  <option value="0">12:00 AM</option>
+                  <option value="1">01:00 AM</option>
+                  <option value="2">02:00 AM</option>
+                  <option value="3">03:00 AM</option>
+                  <option value="4">04:00 AM</option>
+                  <option value="5">05:00 AM</option>
+                  <option value="6">06:00 AM</option>
+                  <option value="7">07:00 AM</option>
+                  <option value="8">08:00 AM</option>
+                  <option value="9">09:00 AM</option>
+                  <option value="10">10:00 AM</option>
+                  <option value="11">11:00 AM</option>
+                  <option value="12">12:00 PM</option>
+                  <option value="13">01:00 PM</option>
+                  <option value="14">02:00 PM</option>
+                  <option value="15">03:00 PM</option>
+                  <option value="16">04:00 PM</option>
+                  <option value="17">05:00 PM</option>
+                  <option value="18">06:00 PM</option>
+                  <option value="19">07:00 PM</option>
+                  <option value="20">08:00 PM</option>
+                  <option value="21">09:00 PM</option>
+                  <option value="22">10:00 PM</option>
+                  <option value="23">11:00 PM</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="col-md-6 pb-1">
-          <label htmlFor="inputCheckOut" className="form-label">
-            Check Out
-          </label>
-          <div className="row">
-            <div className="col-6">
-              <input
-                required
-                onChange={(e) => {
-                  setCheckOutDate(e.target.value);
-                }}
-                type="date"
-                className="form-control"
-                id="inputCheckOut"
-                placeholder="1234 Main St"
-              />
-            </div>
-            <div className="col-6">
-              <select
-                onChange={(e) => {
-                  setCheckOutTime(e.target.value);
-                }}
-                required
-                name="time"
-                id="time"
-                className="form-select"
-              >
-                <option defaultValue="">
-                  Choose...
-                </option>
-                <option value="0">12:00 AM</option>
-                <option value="1">01:00 AM</option>
-                <option value="2">02:00 AM</option>
-                <option value="3">03:00 AM</option>
-                <option value="4">04:00 AM</option>
-                <option value="5">05:00 AM</option>
-                <option value="6">06:00 AM</option>
-                <option value="7">07:00 AM</option>
-                <option value="8">08:00 AM</option>
-                <option value="9">09:00 AM</option>
-                <option value="10">10:00 AM</option>
-                <option value="11">11:00 AM</option>
-                <option value="12">12:00 PM</option>
-                <option value="13">01:00 PM</option>
-                <option value="14">02:00 PM</option>
-                <option value="15">03:00 PM</option>
-                <option value="16">04:00 PM</option>
-                <option value="17">05:00 PM</option>
-                <option value="18">06:00 PM</option>
-                <option value="19">07:00 PM</option>
-                <option value="20">08:00 PM</option>
-                <option value="21">09:00 PM</option>
-                <option value="22">10:00 PM</option>
-                <option value="23">11:00 PM</option>
-              </select>
+          <div className="col-md-6 pb-1">
+            <label htmlFor="inputCheckOut" className="form-label">
+              Check Out
+            </label>
+            <div className="row">
+              <div className="col-6">
+                <input
+                  required
+                  onChange={(e) => {
+                    setCheckOutDate(e.target.value);
+                  }}
+                  type="date"
+                  className="form-control"
+                  id="inputCheckOut"
+                  placeholder="1234 Main St"
+                />
+              </div>
+              <div className="col-6">
+                <select
+                  onChange={(e) => {
+                    setCheckOutTime(e.target.value);
+                  }}
+                  required
+                  name="time"
+                  id="time"
+                  className="form-select"
+                >
+                  <option defaultValue="">Choose...</option>
+                  <option value="0">12:00 AM</option>
+                  <option value="1">01:00 AM</option>
+                  <option value="2">02:00 AM</option>
+                  <option value="3">03:00 AM</option>
+                  <option value="4">04:00 AM</option>
+                  <option value="5">05:00 AM</option>
+                  <option value="6">06:00 AM</option>
+                  <option value="7">07:00 AM</option>
+                  <option value="8">08:00 AM</option>
+                  <option value="9">09:00 AM</option>
+                  <option value="10">10:00 AM</option>
+                  <option value="11">11:00 AM</option>
+                  <option value="12">12:00 PM</option>
+                  <option value="13">01:00 PM</option>
+                  <option value="14">02:00 PM</option>
+                  <option value="15">03:00 PM</option>
+                  <option value="16">04:00 PM</option>
+                  <option value="17">05:00 PM</option>
+                  <option value="18">06:00 PM</option>
+                  <option value="19">07:00 PM</option>
+                  <option value="20">08:00 PM</option>
+                  <option value="21">09:00 PM</option>
+                  <option value="22">10:00 PM</option>
+                  <option value="23">11:00 PM</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="col-md-4 pb-1">
-          <label htmlFor="inputTip" className="form-label">
-            Tip for the staff
-          </label>
-          <input
-            defaultValue={0}
-            value={tip}
-            required
-            onChange={(e) => {
-              if(e.target.value < 0){
-                alert("Tip cannot be negative");
-                setTip(0);
-              }else{
-                setTip(e.target.value);
-              }
-            }}
-            type="number"
-            className="form-control"
-          />
-        </div>
-        <div className="col-md-4 pb-1">
-          <label htmlFor="inputPaymetMethod" className="form-label">
-            Paymet Method
-          </label>
-          <select
-            onChange={(e) => {
-              setPayment(e.target.value);
-            }}
-            required
-            id="inputPaymetMethod"
-            className="form-select"
-          >
-            <option defaultValue="">
-              Choose...
-            </option>
-            <option value="cash">Cash</option>
-            <option value="card">Card</option>
-            <option value="upi">UPI</option>
-          </select>
-        </div>
-        {availableRooms.length > 0 && (
-          <div className="col-md-4">
-            <label htmlFor="inputRoom" className="form-label">
-              Available Room
+          <div className="col-md-4 pb-1">
+            <label htmlFor="inputTip" className="form-label">
+              Tip for the staff
+            </label>
+            <input
+              defaultValue={0}
+              value={tip}
+              required
+              onChange={(e) => {
+                if (e.target.value < 0) {
+                  alert("Tip cannot be negative");
+                  setTip(0);
+                } else {
+                  setTip(e.target.value);
+                }
+              }}
+              type="number"
+              className="form-control"
+            />
+          </div>
+          <div className="col-md-4 pb-1">
+            <label htmlFor="inputPaymetMethod" className="form-label">
+              Paymet Method
             </label>
             <select
               onChange={(e) => {
-                setRoom(e.target.value);
+                setPayment(e.target.value);
               }}
               required
-              id="inputRoom"
+              id="inputPaymetMethod"
               className="form-select"
             >
-              <option defaultValue="">
-                Choose...
-              </option>
-              {availableRooms.map((room, index) => (
-                <option key={index} value={room}>
-                  {room}
-                </option>
-              ))}
+              <option defaultValue="">Choose...</option>
+              <option value="cash">Cash</option>
+              <option value="card">Card</option>
+              <option value="upi">UPI</option>
             </select>
           </div>
-        )}
-        {availableRooms.length === 0 && (
-          <div className="col-md-6">
-            <label htmlFor="inputRoom" className="form-label">
-              Available Room
-            </label>
-            <select disabled required id="inputRoom" className="form-select">
-              <option defaultValue="">
-                Choose...
-              </option>
-              <option value="">No Rooms Available</option>
-            </select>
+          {availableRooms.length > 0 && (
+            <div className="col-md-4">
+              <label htmlFor="inputRoom" className="form-label">
+                Available Room
+              </label>
+              <select
+                onChange={(e) => {
+                  setRoom(e.target.value);
+                }}
+                required
+                id="inputRoom"
+                className="form-select"
+              >
+                <option defaultValue="">Choose...</option>
+                {availableRooms.map((room, index) => (
+                  <option key={index} value={room}>
+                    {room}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {availableRooms.length === 0 && (
+            <div className="col-md-6">
+              <label htmlFor="inputRoom" className="form-label">
+                Available Room
+              </label>
+              <select disabled required id="inputRoom" className="form-select">
+                <option defaultValue="">Choose...</option>
+                <option value="">No Rooms Available</option>
+              </select>
+            </div>
+          )}
+          <div className="d-grid gap-2 col-3 mx-auto">
+            <button onClick={handleSubmit} className="btn btn-primary center">
+              Book Room
+            </button>
           </div>
-        )}
-        <div className="d-grid gap-2 col-3 mx-auto">
-          <button onClick={handleSubmit} className="btn btn-primary center">
-            Book Room
-          </button>
-        </div>
-        {check && (
-          <div className="alert alert-success" role="alert">
-            Total Bill: {totalBill}
-          </div>
-        )}
-      </form>
+          {check && (
+            <div className="alert alert-success" role="alert">
+              Total Bill: {totalBill}
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 };

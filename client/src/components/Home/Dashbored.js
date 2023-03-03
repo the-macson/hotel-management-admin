@@ -36,6 +36,8 @@ const Dashbored = () => {
         } else {
             setFilterData(data);
         }
+        setCheckIn('');
+        setCheckOut('');
     }, [roomType, roomNumber])
 
     // filter by check in and check out
@@ -53,6 +55,8 @@ const Dashbored = () => {
         } else {
             setFilterData(data);
         }
+        setRoomNumber('');
+        setRoomType('');
     }, [checkIn, checkOut])
 
     // delete booking
@@ -89,23 +93,31 @@ const Dashbored = () => {
         })
     }
 
+    const handleResetFilter = () => {
+        setRoomType('');
+        setRoomNumber('');
+        setCheckIn('');
+        setCheckOut('');
+        setFilterData(data);
+    }
+
     return (
-        <div>
-            <div className='container'>
+        <div className='home-page-container'>
+            <div className='container home-content'>
                 {/* button to reset filter */}
-                <div className='row mb-3'>
+                <div className='row mb-3 table-row'>
                     <div className='col-md-12'>
-                        <button onClick={() => { setFilterData(data) }} className='btn btn-primary btn-sm'>Reset Filter</button>
+                        <button onClick={handleResetFilter} className='btn btn-primary btn-sm'>Reset Filter</button>
                     </div>
                 </div>
 
                 {/* filter by room number and room type */}
-                <div className='row mb-3'>
+                <div className='row mb-3 table-row'>
                     <div className='col-md-3'>
                         <div className='form-group'>
                             <label htmlFor="roomType">Room Type</label>
-                            <select onChange={(e)=>{setRoomType(e.target.value)}} className="form-control" id="roomType">
-                                <option value="" selected disabled>Choose here</option>
+                            <select value={roomType} onChange={(e)=>{setRoomType(e.target.value)}} className="form-control" id="roomType">
+                                <option value="" selected>Choose here</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
                                 <option value="C">C</option>
@@ -115,8 +127,8 @@ const Dashbored = () => {
                     <div className='col-md-3'>
                         <div className='form-group'>
                             <label htmlFor="roomNumber">Room Number</label>
-                            <select onChange={(e)=>{setRoomNumber(e.target.value)}} className="form-control" id="roomNumber">
-                                <option value="" selected disabled>Choose here</option>
+                            <select value={roomNumber} onChange={(e)=>{setRoomNumber(e.target.value)}} className="form-control" id="roomNumber">
+                                <option value="" selected>Choose here</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -139,8 +151,15 @@ const Dashbored = () => {
                         </div>
                     </div>
                 </div>
-                <div className='row'>
-                    <Table bordered hover responsive className='mb-0' >
+                {filterData.length == 0 ? (
+                    <div className='row mb-3 table-row'>
+                        <div className='col-md-12'>
+                            <h3 className='text-center py-5'>No data found</h3>
+                        </div>
+                    </div>
+                ) : (
+                <div className='row table-style'>
+                    <Table bordered hover responsive className='mb-0'>
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -189,7 +208,8 @@ const Dashbored = () => {
                         </tbody>
                     </Table>
                 </div>
-            </div>                       
+                )}                   
+            </div>    
         </div>
     )
 }

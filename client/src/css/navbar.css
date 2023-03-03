@@ -1,96 +1,206 @@
 .nav{
     background-color: #3A1078;
+	position: fixed;
+    width: 100%;
+    box-shadow: 1px 1px 9px 1px #63523d;
 }
-#menu {
-	background: #3A1078;
-	color: #FFF;
-	height: 50px;
-	padding-left: 18px;
-	border-radius: 0px;
+
+.home-page-container {
+    /* padding-top: 100px; */
+    background-image: url(../Images/hotel.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
 }
-#menu ul, #menu li {
-	margin: 0 auto;
-	padding: 0;
-	list-style: none
+.container.home-content {
+	top:20px;
+    width: 80%;
+    padding: 30px;
+    border: 1px solid white;
+    box-shadow: 1px 2px 8px 3px #0e0e0e;
+    background: url(../Images/blank.png);
+	min-height: 85%;
 }
-#menu ul {
-	width: 100%;
+.table-row{
+	margin-bottom: 30px;
 }
-#menu li {
-	float: left;
-	display: inline;
+@media (min-width:1400px){
+	.book-room-form-container {
+		width: 70%;
+		padding: 35px;
+		border: 1px solid white;
+		box-shadow: 1px 2px 8px 3px #444444;
+		background: url(../Images/blank.png);
+		background: #f4f7f8;
+	}
+	.book-room-container {
+		display: flex;
+		/* margin-top: 100px; */
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+		background: url(../Images/bookroom.jpg);
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+}
+/* media query for 14inch display device */
+@media screen and (max-width: 1400px) {
+	.book-room-form-container {
+		background: #f4f7f8;
+		border-top-right-radius: 8px;
+		border-top-left-radius: 8px;
+		border-radius: 8px;
+		margin-bottom: 40px;
+		padding-top: 15px;
+	}
+	.home-page-container {
+		height: 100vh;
+	}
+	.container.home-content {
+		width: 90%;
+	}
+	.form-style-5{
+		width: 100%;
+	}
+	.form-style-5 input {
+		margin-bottom: 8px;
+	}
+	.outer-box {
+		padding-top: 30px;
+		margin-bottom: 50px;
+	}
+}
+/* media query for 13inch display device */
+@media screen and (max-width: 1300px) {
+	.book-room-form-container {
+		width: 90%;
+	}
+	.home-page-container {
+		height: 100vh;
+	}
+	.container.home-content {
+		width: 100%;
+	}
+}
+/* media query for 12inch display device */
+@media screen and (max-width: 1200px) {
+	.book-room-form-container {
+		width: 100%;
+	}
+	.home-page-container {
+		height: 100vh;
+	}
+	.container.home-content {
+		width: 100%;
+	}
+}
+/* responsive for mobile */
+@media screen and (max-width: 600px) {
+	.book-room-form-container {
+		width: 100%;
+	}
+	.home-page-container {
+		height: auto;
+	}
+	.container.home-content {
+		width: 100%;
+	}
+	.table-style {
+		font-size: 0.8em;
+	}
+}
+/* fix position of the table box */
+.table-box {
 	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
-#menu a {
-	display: block;
-	line-height: 48px;
-	padding: 0 14px;
-	text-decoration: none;
-	color: #FFFFFF;
-	font-size: 15px;
-}
-#menu a.dropdown-arrow:after {
-	content: "\25BE";
-	margin-left: 5px;
-}
-#menu li a:hover {
-	color: #3795BD;
-	background: #F2F2F2;
-}
-#menu input {
-	display: none;
-	margin: 0;
-	padding: 0;
-	height: 50px;
+.table-style {
 	width: 100%;
-	opacity: 0;
-	cursor: pointer
+	border-collapse: collapse;
+	font-size: 0.9em;
+	font-family: sans-serif;
 }
-#menu label {
-	display: none;
-	line-height: 48px;
-	text-align: center;
-	position: absolute;
-	left: 35px
+.table-style thead tr {
+	background-color: #009879;
+	color: #ffffff;
+	text-align: left;
 }
-#menu label:before {
-	font-size: 1.6em;
-	content: "\2261"; 
-	margin-left: 20px;
+.table-style th, .table-style td {
+	padding: 12px 15px;
 }
-#menu ul.sub-menus{
-	height: auto;
-	overflow: hidden;
-	width: 170px;
-	background: #444444;
-	position: absolute;
-	z-index: 99;
-	display: none;
+.table-style tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
 }
-#menu ul.sub-menus li {
+.table-style tbody tr.active-row {
+	font-weight: bold;
+	color: #009879;
+}
+/* apply css on labels and input fields */
+.form-style-5{
+	padding: 10px 20px;
+	margin: 10px auto;
+	padding: 20px;
+	background: #f4f7f8;
+	border-radius: 8px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+.form-style-5 fieldset{
+	border: none;
+}
+.form-style-5 legend {
+	font-size: 1.4em;
+	margin-bottom: 10px;
+}
+.form-style-5 label {
 	display: block;
-	width: 100%;
+	margin-bottom: 8px;
 }
-#menu ul.sub-menus a {
-	color: #FFFFFF;
+.form-style-5 input[type="text"],
+.form-style-5 input[type="date"],
+.form-style-5 input[type="datetime"],
+.form-style-5 input[type="email"],
+.form-style-5 input[type="number"],
+.form-style-5 input[type="search"],
+.form-style-5 input[type="time"],
+.form-style-5 input[type="url"],
+.form-style-5 textarea,
+.form-style-5 select {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	background: #fff;
+	border: none;
+	border-radius: 4px;
 	font-size: 16px;
+	margin: 0;
+	outline: 0;
+	padding: 7px;
+	width: 100%;
+	box-sizing: border-box; 
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box; 
+	background-color: #e8eeef;
+	color:#8a97a0;
+	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	margin-bottom: 14px;
 }
-#menu li:hover ul.sub-menus {
-	display: block
+.form-style-5 input[type="text"]:focus,
+.form-style-5 input[type="date"]:focus,
+.form-style-5 input[type="datetime"]:focus,
+.form-style-5 input[type="email"]:focus,
+.form-style-5 input[type="number"]:focus,
+.form-style-5 input[type="search"]:focus,
+.form-style-5 input[type="time"]:focus,
+.form-style-5 input[type="url"]:focus,
+.form-style-5 textarea:focus,
+.form-style-5 select:focus{
+	background: #d2d9dd;
 }
-#menu ul.sub-menus a:hover{
-	background: #F2F2F2;
-	color: #444444;
-}
-@media screen and (max-width: 800px){
-	#menu {position:relative}
-	#menu ul {background:#111;position:absolute;top:100%;right:0;left:0;z-index:3;height:auto;display:none}
-	#menu ul.sub-menus {width:100%;position:static;}
-	#menu ul.sub-menus a {padding-left:30px;}
-	#menu li {display:block;float:none;width:auto;}
-	#menu input, #menu label {position:absolute;top:0;left:0;display:block}
-	#menu input {z-index:4}
-	#menu input:checked + label {color:white}
-	#menu input:checked + label:before {content:"\00d7"}
-	#menu input:checked ~ ul {display:block}
+.form-style-5 select{
+	-webkit-appearance: menulist-button;
+	height:35px;
 }
