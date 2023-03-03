@@ -61,7 +61,10 @@
 		height: 100vh;
 	}
 	.container.home-content {
+		position: relative;
+		top: 20px;
 		width: 90%;
+		border: none;
 	}
 	.form-style-5{
 		width: 100%;
@@ -81,6 +84,8 @@
 	}
 	.home-page-container {
 		height: 100vh;
+		background-image: none;
+		display: block;
 	}
 	.container.home-content {
 		width: 100%;
