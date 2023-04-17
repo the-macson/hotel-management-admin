@@ -32,8 +32,13 @@ const BookRoom = () => {
   // book available room
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(checkInDate == "" || checkInTime == "" || checkOutDate == "" || checkOutTime == "" || room == "" || payment == ""){
+    if(name == "" || email == "" || checkInDate == "" || checkInTime == "" || checkOutDate == "" || checkOutTime == "" || room == "" || payment == ""){
       alert("Please fill all the fields");
+      return;
+    }
+    let checkEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(!email.match(checkEmail)){
+      alert("Email is not valid");
       return;
     }
     let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
@@ -65,7 +70,7 @@ const BookRoom = () => {
   };
 
   useEffect(() => {
-    setAvailableRooms(["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5"]);
+    setAvailableRooms(["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5","D1"]);
     if(checkInDate != "" && checkInTime != ""){
       let checkIn = Date.parse(`${checkInDate} ${checkInTime}:00`) / 1000;
       let currentTime = Date.parse(new Date()) / 1000;
@@ -84,18 +89,21 @@ const BookRoom = () => {
       } else {
         let timeDiff = Math.abs(checkOut - checkIn);
         let diffHours = Math.ceil(timeDiff / 3600);
-        
+        let Pending = ["A1","A2","B1","B2","B3","C1","C2","C3","C4","C5","D1"];
         let filteredData = data.filter((item) => {
           let itemCheckIn = item.checkIn;
           let itemCheckOut = item.checkOut;
-          if (!(itemCheckIn <= checkIn && itemCheckOut <= checkIn) && !(itemCheckIn >= checkOut && itemCheckOut >= checkOut)) {
+          console.log(!(itemCheckIn > checkOut || itemCheckOut < checkIn));
+          if (!((itemCheckIn > checkOut)|| (itemCheckOut < checkIn))) {
             let room = item.roomType.toUpperCase() + item.roomNumber;
-            const Pending = availableRooms.filter((element) => element != room);
-            setAvailableRooms(Pending);
+            console.log(room);
+            Pending = Pending.filter((element) => element != room);
+            // Pendings = [...Pendings, ...Pending];
+            // console.log(Pending);
           }
         });
-        
-        
+        console.log(Pending);
+        setAvailableRooms(Pending);
       }
     }
   }, [checkInDate, checkInTime, checkOutDate, checkOutTime]);
@@ -362,3 +370,5 @@ const BookRoom = () => {
 };
 
 export default BookRoom;
+
+

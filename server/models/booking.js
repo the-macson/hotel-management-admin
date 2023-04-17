@@ -11,7 +11,8 @@ const bookingSchema = new Schema({
     },
     roomType : {
         type: String,
-        required: true
+        required: true,
+        enum:['A','B','C']
     },
     checkIn : {
         type: String,

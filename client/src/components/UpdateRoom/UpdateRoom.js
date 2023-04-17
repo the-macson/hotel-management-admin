@@ -138,8 +138,18 @@ const UpdateRoom = () => {
             if (!(itemCheckIn <= checkIn && itemCheckOut <= checkIn) && !(itemCheckIn >= checkOut && itemCheckOut >= checkOut)) {
               let room = item.roomType.toUpperCase() + item.roomNumber;
               const Pending = availableRooms.filter((element) =>{
-                if(checkIn >= itemCheckIn && checkOut <= itemCheckOut && data.roomType == item.roomType && data.roomNumber == item.roomNumber) {
-                  return element;
+                let availableSameRoom = true;
+                if(data.roomType == item.roomType && data.roomNumber == item.roomNumber) {
+                  allData.filter((element)=>{
+                    if(element.roomType == data.roomType && element.roomNumber == data.roomNumber && element._id != data._id){
+                      if(!(element.checkIn <= checkIn && element.checkOut <= checkIn) && !(element.checkIn >= checkOut && element.checkOut >= checkOut)){
+                        availableSameRoom = false;
+                      }
+                    }
+                  })
+                }
+                if(availableSameRoom == true) {
+                  return room;
                 }
                 return element !== room;
               });

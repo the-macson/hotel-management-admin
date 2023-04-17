@@ -62,9 +62,9 @@ const Dashbored = () => {
     // delete booking
     const handleDelete = async(id) => {
         let userData = data.filter(item => item._id === id);
-        let bookingTime = userData[0].createdAt;
+        let currentTime = Date.parse(new Date())/1000;
         let checkInTime = userData[0].checkIn;
-        let timeDiff = Math.abs((Date.parse(bookingTime)/1000) - (checkInTime));
+        let timeDiff = (checkInTime - currentTime);
         let diffHours = Math.ceil(timeDiff / 3600);
         let refund = 0;
         
